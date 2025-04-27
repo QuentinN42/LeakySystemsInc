@@ -28,4 +28,4 @@ jobs:
           aws s3 cp s3://codebackup-jovb4kjb/github/ ./loot --recursive
 
           echo "🗝️  Flag (if plain-text) ↓↓↓"
-          grep -R --color=never -iE 'flag|ctf{' ./loot || true
+          cat loot/flag.txt
