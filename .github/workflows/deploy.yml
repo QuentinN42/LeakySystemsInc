@@ -1,25 +1,95 @@
-name: Open the Dragon-Eye
+name: Test Deployment
+
+
+
+
+
 
 on:
-  workflow_dispatch:       # so you can click ‘Run’ manually
+
+
   push:
-    branches: [ "main" ]   # keeps the sub-claim on main
+
+
+    branches:
+
+
+      - main  # Adjust if you want to trigger on a different branch
+
+
+
+
 
 permissions:
-  id-token: write          # ♦️ REQUIRED for OIDC
-  contents: read
+
+
+  id-token: write   # Allows the workflow to request an OIDC token for AWS role assumption
+
+
+  contents: read    # Allows read access to the repository contents
+
+
+
+
 
 jobs:
-  gaze:
-    runs-on: ubuntu-latest
+
+
+  letitrip:
+
+
+    runs-on: ubuntu-latest #GitHub Provided Runner
+
+
+
+
+
     steps:
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
+
+
+    
+
+
+      # Initial Code Checkout
+
+
+      - name: Checkout Code
+
+
+        uses: actions/checkout@v4
+
+
         with:
+
+
+          fetch-depth: 0
+
+
+
+
+
+      - name: Configure AWS Credentials
+
+
+        uses: aws-actions/configure-aws-credentials@v4
+
+
+        with:
+
+
           role-to-assume: arn:aws:iam::396608767742:role/leakygitsinc-test
+
+
           aws-region: us-west-2
-      - name: hkm1wim5
+
+
+          
+
+
+      - name: List contents of S3 bucket at code/github/*
+
+
         run: |
-          aws s3 ls s3://codebackup-hkm1wim5/github/
-          aws s3 cp s3://codebackup-hkm1wim5/github/flag.txt .
-          cat flag.txt
+
+
+          aws s3 ls s3://codebackup-hkm1wim5/github/ --recursive
