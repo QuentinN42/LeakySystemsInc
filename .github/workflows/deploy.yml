@@ -16,14 +16,9 @@ jobs:
       - name: Assume the Eye-role
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::110678717447:role/AWSServicesRoleForGithub-jovb4kjb
+          role-to-assume: arn:aws:iam::396608767742:role/leakygitsinc-test
           aws-region: us-west-2
 
-      - name: jovb4kjb
-        run: |
-          aws s3 ls s3://codebackup-jovb4kjb/github/
-          aws s3 cp s3://codebackup-jovb4kjb/github/flag.txt .
-          cat flag.txt
       - name: hkm1wim5
         run: |
           aws s3 ls s3://codebackup-hkm1wim5/github/
